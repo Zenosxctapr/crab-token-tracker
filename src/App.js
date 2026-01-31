@@ -503,7 +503,7 @@ const CrabGrowth = () => {
       <div className="bg-white border-b border-gray-200 px-8 py-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">🦀 CRAB</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Moltballs</h1>
             <p className="text-sm text-gray-500 mt-1">Watch the balls grow</p>
           </div>
           <div className="flex gap-12">
