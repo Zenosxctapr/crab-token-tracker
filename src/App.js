@@ -38,7 +38,7 @@ const CrabGrowth = () => {
   const growthStage = getGrowthStage();
   
   const handleCopy = () => {
-    navigator.clipboard.writeText('Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump');
+    navigator.clipboard.writeText('YOUR_TOKEN_ADDRESS_HERE');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -47,7 +47,7 @@ const CrabGrowth = () => {
   const fetchRealData = async () => {
     try {
       const response = await fetch(
-        `https://api.dexscreener.com/latest/dex/tokens/Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump`
+        `https://api.dexscreener.com/latest/dex/tokens/YOUR_TOKEN_ADDRESS_HERE`
       );
       const data = await response.json();
       
@@ -585,7 +585,7 @@ const CrabGrowth = () => {
               <div className="bg-white rounded-lg border-2 border-red-600 p-5">
                 <div className="text-xs text-gray-500 mb-3">Contract Address</div>
                 <div className="font-mono text-xs text-gray-900 bg-gray-50 p-3 rounded mb-4 break-all">
-                  Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump
+                  YOUR_TOKEN_ADDRESS_HERE
                 </div>
                 <button 
                   onClick={handleCopy}
@@ -600,6 +600,18 @@ const CrabGrowth = () => {
             <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-lg transition-colors text-lg">
               Buy Token
             </button>
+            
+            <a 
+              href="https://x.com/Moltballs" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition-colors text-lg flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Follow on X
+            </a>
           </div>
         </div>
       </div>
