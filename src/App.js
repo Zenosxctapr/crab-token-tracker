@@ -38,7 +38,7 @@ const CrabGrowth = () => {
   const growthStage = getGrowthStage();
   
   const handleCopy = () => {
-    navigator.clipboard.writeText('YOUR_TOKEN_ADDRESS_HERE');
+    navigator.clipboard.writeText('Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -47,7 +47,7 @@ const CrabGrowth = () => {
   const fetchRealData = async () => {
     try {
       const response = await fetch(
-        `https://api.dexscreener.com/latest/dex/tokens/YOUR_TOKEN_ADDRESS_HERE`
+        `https://api.dexscreener.com/latest/dex/tokens/Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump`
       );
       const data = await response.json();
       
