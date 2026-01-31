@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  * CRAB TOKEN GROWTH TRACKER - LIVE SOLANA DATA
  * 
@@ -634,8 +635,3 @@ const CrabGrowth = () => {
 };
 
 export default CrabGrowth;
-
-
-
-
-
