@@ -12,12 +12,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TrendingUp, Users, Copy, Check } from 'lucide-react';
 
 const CrabGrowth = () => {
-  const [tokenData, setTokenData] = useState({
-    price: 0.00001234,
-    marketCap: 15000,
-    holders: 234,
-    currentSize: 15
-  });
+  const [tokenData, setTokenData] = useState(null); // Start with null instead of fake data
+  const [hasContractAddress, setHasContractAddress] = useState(false);
   
   const [copied, setCopied] = useState(false);
   const [autoRotate] = useState(true);
@@ -26,7 +22,14 @@ const CrabGrowth = () => {
   const crabGroupRef = useRef(null);
   const animationFrameRef = useRef(null);
   
+  // Check if contract address is set on mount
+  useEffect(() => {
+    const contractAddress = 'YOUR_TOKEN_ADDRESS_HERE';
+    setHasContractAddress(contractAddress !== 'YOUR_TOKEN_ADDRESS_HERE');
+  }, []);
+  
   const getGrowthStage = () => {
+    if (!tokenData) return 1;
     const size = tokenData.currentSize;
     if (size < 30) return 1;
     if (size < 60) return 2;
@@ -45,6 +48,8 @@ const CrabGrowth = () => {
   
   // FETCH REAL TOKEN DATA FROM DEXSCREENER
   const fetchRealData = async () => {
+    if (!hasContractAddress) return; // Don't fetch if no CA
+    
     try {
       const response = await fetch(
         `https://api.dexscreener.com/latest/dex/tokens/YOUR_TOKEN_ADDRESS_HERE`
@@ -485,6 +490,8 @@ const CrabGrowth = () => {
   }, [tokenData.currentSize, growthStage, threeLoaded, tokenData.marketCap, tokenData]);
   
   useEffect(() => {
+    if (!hasContractAddress) return; // Only fetch if CA is set
+    
     // Fetch immediately on load
     fetchRealData();
     
@@ -495,7 +502,7 @@ const CrabGrowth = () => {
     
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasContractAddress]);
   
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
@@ -509,11 +516,15 @@ const CrabGrowth = () => {
           <div className="flex gap-12">
             <div>
               <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Price</div>
-              <div className="text-2xl font-bold text-gray-900">$ {tokenData.price.toFixed(8)}</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {tokenData ? `$ ${tokenData.price.toFixed(8)}` : 'No Data'}
+              </div>
             </div>
             <div>
               <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Market Cap</div>
-              <div className="text-2xl font-bold text-gray-900">$ {tokenData.marketCap.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {tokenData ? `$ ${tokenData.marketCap.toLocaleString()}` : 'No Data'}
+              </div>
             </div>
           </div>
         </div>
@@ -530,19 +541,19 @@ const CrabGrowth = () => {
                 <div>
                   <div className="text-xs text-gray-500">Market Cap</div>
                   <div className="text-xl font-bold text-gray-900">
-                    ${(tokenData.marketCap / 1000).toFixed(1)}K
+                    {tokenData ? `$${(tokenData.marketCap / 1000).toFixed(1)}K` : 'No Data'}
                   </div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500">Price</div>
                   <div className="text-lg font-bold text-gray-900">
-                    ${tokenData.price.toFixed(8)}
+                    {tokenData ? `$${tokenData.price.toFixed(8)}` : 'No Data'}
                   </div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500">Holders</div>
                   <div className="text-lg font-bold text-gray-900">
-                    {tokenData.holders.toLocaleString()}
+                    {tokenData ? tokenData.holders.toLocaleString() : 'No Data'}
                   </div>
                 </div>
               </div>
@@ -562,7 +573,7 @@ const CrabGrowth = () => {
                 <div>
                   <div className="text-xs text-gray-500">Ball Size</div>
                   <div className="text-lg font-bold text-gray-900">
-                    {(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}%
+                    {tokenData ? `${(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}%` : 'No Data'}
                   </div>
                 </div>
               </div>
@@ -605,10 +616,19 @@ const CrabGrowth = () => {
             </div>
           )}
           
+          {!hasContractAddress && threeLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-gray-900 text-xl font-bold mb-2">No Contract Address</div>
+                <div className="text-gray-500 text-sm">Add your token contract address to see live data</div>
+              </div>
+            </div>
+          )}
+          
           <div className="absolute bottom-8 left-8 bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4">
             <div className="text-xs text-gray-500 mb-1">Balls are growing</div>
             <div className="text-2xl font-bold text-red-600">
-              {(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}% bigger
+              {tokenData ? `${(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}% bigger` : 'No Data'}
             </div>
           </div>
         </div>
@@ -624,7 +644,9 @@ const CrabGrowth = () => {
                   <Users className="w-4 h-4 text-gray-400" />
                   <div className="text-xs text-gray-500">Holders</div>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{tokenData.holders.toLocaleString()}</div>
+                <div className="text-2xl font-bold text-gray-900">
+                  {tokenData ? tokenData.holders.toLocaleString() : 'No Data'}
+                </div>
               </div>
               
               <div className="bg-white rounded-lg border-2 border-red-600 p-5">
@@ -692,4 +714,3 @@ const CrabGrowth = () => {
 };
 
 export default CrabGrowth;
-
