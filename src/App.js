@@ -498,57 +498,33 @@ const CrabGrowth = () => {
   }, []);
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cyan-400 via-blue-500 to-blue-700 flex flex-col font-sans relative overflow-hidden">
-      {/* Ocean floor background pattern */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 50%),
-            radial-gradient(ellipse at 40% 90%, rgba(255,255,255,0.05) 0%, transparent 50%),
-            linear-gradient(to bottom, transparent 60%, rgba(139, 92, 46, 0.3) 100%)
-          `,
-          backgroundSize: 'cover'
-        }}
-      />
-      
-      {/* Sandy bottom effect */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-1/3 opacity-20"
-        style={{
-          background: 'linear-gradient(to top, #c2a679 0%, transparent 100%)'
-        }}
-      />
-      
-      {/* Content overlay */}
-      <div className="relative z-10">
-        {/* Header */}
-        <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-lg px-8 py-6">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+      {/* Simple header */}
+      <div className="bg-white border-b border-gray-200 px-8 py-6">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">🦀 CRAB</h1>
+            <p className="text-sm text-gray-500 mt-1">Watch the balls grow</p>
+          </div>
+          <div className="flex gap-12">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">🦀 CRAB</h1>
-              <p className="text-sm text-gray-500 mt-1">Watch the balls grow</p>
+              <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Price</div>
+              <div className="text-2xl font-bold text-gray-900">$ {tokenData.price.toFixed(8)}</div>
             </div>
-            <div className="flex gap-12">
-              <div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Price</div>
-                <div className="text-2xl font-bold text-gray-900">$ {tokenData.price.toFixed(8)}</div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Market Cap</div>
-                <div className="text-2xl font-bold text-gray-900">$ {tokenData.marketCap.toLocaleString()}</div>
-              </div>
+            <div>
+              <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Market Cap</div>
+              <div className="text-2xl font-bold text-gray-900">$ {tokenData.marketCap.toLocaleString()}</div>
             </div>
           </div>
         </div>
+      </div>
       
       <div className="flex-1 flex max-w-7xl mx-auto w-full">
         {/* Left stats */}
         <div className="w-64 p-8">
           <div className="space-y-6">
             {/* Current Stats Box */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-gray-200 shadow-lg p-4">
+            <div className="bg-white rounded-lg border-2 border-gray-200 p-4">
               <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4">Current Stats</h3>
               <div className="space-y-3">
                 <div>
@@ -573,7 +549,7 @@ const CrabGrowth = () => {
             </div>
 
             {/* Growth Box */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-red-600 shadow-lg p-4">
+            <div className="bg-white rounded-lg border-2 border-red-600 p-4">
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="w-4 h-4 text-red-600" />
                 <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Growth</h3>
@@ -593,7 +569,7 @@ const CrabGrowth = () => {
             </div>
 
             {/* Quick Vitals Box */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-gray-200 shadow-lg p-4">
+            <div className="bg-white rounded-lg border-2 border-gray-200 p-4">
               <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4">Quick Vitals</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -620,7 +596,7 @@ const CrabGrowth = () => {
         </div>
         
         {/* Center 3D view */}
-        <div className="flex-1 relative bg-white/80 backdrop-blur-sm shadow-lg">
+        <div className="flex-1 relative bg-white">
           <div ref={mountRef} className="w-full h-full" />
           
           {!threeLoaded && (
@@ -629,7 +605,7 @@ const CrabGrowth = () => {
             </div>
           )}
           
-          <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 px-6 py-4">
+          <div className="absolute bottom-8 left-8 bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4">
             <div className="text-xs text-gray-500 mb-1">Balls are growing</div>
             <div className="text-2xl font-bold text-red-600">
               {(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}% bigger
@@ -643,7 +619,7 @@ const CrabGrowth = () => {
             <div>
               <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4">Token</h3>
               
-              <div className="bg-white/95 backdrop-blur-sm rounded-lg border border-gray-200 shadow-lg p-5 mb-4">
+              <div className="bg-white rounded-lg border border-gray-200 p-5 mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Users className="w-4 h-4 text-gray-400" />
                   <div className="text-xs text-gray-500">Holders</div>
@@ -651,14 +627,14 @@ const CrabGrowth = () => {
                 <div className="text-2xl font-bold text-gray-900">{tokenData.holders.toLocaleString()}</div>
               </div>
               
-              <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-red-600 shadow-lg p-5">
+              <div className="bg-white rounded-lg border-2 border-red-600 p-5">
                 <div className="text-xs text-gray-500 mb-3">Contract Address</div>
                 <div className="font-mono text-xs text-gray-900 bg-gray-50 p-3 rounded mb-4 break-all">
                   YOUR_TOKEN_ADDRESS_HERE
                 </div>
                 <button 
                   onClick={handleCopy}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   {copied ? 'Copied!' : 'Copy Address'}
@@ -666,7 +642,7 @@ const CrabGrowth = () => {
               </div>
             </div>
             
-            <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-lg transition-all shadow-lg hover:shadow-xl text-lg transform hover:scale-105">
+            <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-lg transition-colors text-lg">
               Buy Token
             </button>
             
@@ -674,7 +650,7 @@ const CrabGrowth = () => {
               href="https://x.com/Moltballs" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition-all shadow-lg hover:shadow-xl text-lg flex items-center justify-center gap-2 transform hover:scale-105"
+              className="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition-colors text-lg flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -685,8 +661,8 @@ const CrabGrowth = () => {
         </div>
       </div>
       
-      {/* Footer */}
-      <div className="bg-white/95 backdrop-blur-sm border-t border-gray-200 shadow-lg px-8 py-6">
+      {/* Simple footer */}
+      <div className="bg-white border-t border-gray-200 px-8 py-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-5 gap-3">
             {[
@@ -698,10 +674,10 @@ const CrabGrowth = () => {
             ].map((milestone) => (
               <div 
                 key={milestone.stage}
-                className={`text-center py-3 rounded-lg border-2 transition-all shadow-md ${
+                className={`text-center py-3 rounded-lg border-2 transition-all ${
                   growthStage >= milestone.stage
-                    ? 'bg-red-600 border-red-600 text-white shadow-lg' 
-                    : 'bg-white/80 border-gray-200 text-gray-400'
+                    ? 'bg-red-600 border-red-600 text-white' 
+                    : 'border-gray-200 text-gray-400'
                 }`}
               >
                 <div className="text-sm font-bold">Stage {milestone.stage}</div>
@@ -711,9 +687,9 @@ const CrabGrowth = () => {
           </div>
         </div>
       </div>
-      </div>
     </div>
   );
 };
 
 export default CrabGrowth;
+
