@@ -24,7 +24,7 @@ const CrabGrowth = () => {
   
   // Check if contract address is set on mount
   useEffect(() => {
-    const contractAddress = 'YOUR_TOKEN_ADDRESS_HERE';
+    const contractAddress = 'C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump';
     setHasContractAddress(contractAddress !== 'YOUR_TOKEN_ADDRESS_HERE');
   }, []);
   
@@ -41,7 +41,7 @@ const CrabGrowth = () => {
   const growthStage = getGrowthStage();
   
   const handleCopy = () => {
-    navigator.clipboard.writeText('YOUR_TOKEN_ADDRESS_HERE');
+    navigator.clipboard.writeText('C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -52,7 +52,7 @@ const CrabGrowth = () => {
     
     try {
       const response = await fetch(
-        `https://api.dexscreener.com/latest/dex/tokens/YOUR_TOKEN_ADDRESS_HERE`
+        `https://api.dexscreener.com/latest/dex/tokens/C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump`
       );
       const data = await response.json();
       
