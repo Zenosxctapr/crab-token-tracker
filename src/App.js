@@ -63,7 +63,7 @@ const CrabGrowth = () => {
         setTokenData({
           price: parseFloat(mainPair.priceUsd) || 0.00001234,
           marketCap: marketCap,
-          holders: 234, // DexScreener doesn't provide holder count
+          holders: 24, // DexScreener doesn't provide holder count
           currentSize: Math.sqrt(marketCap / 100)
         });
       }
