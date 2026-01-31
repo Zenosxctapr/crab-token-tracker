@@ -93,7 +93,7 @@ const CrabGrowth = () => {
   
   const buildSimpleCrab = (stage, size, tokenData) => {
     const THREE = window.THREE;
-    if (!THREE || !crabGroupRef.current) return;
+    if (!THREE || !crabGroupRef.current || !tokenData) return; // Add tokenData check
     
     const crabGroup = crabGroupRef.current;
     
@@ -445,7 +445,9 @@ const CrabGrowth = () => {
     crabGroupRef.current = crabGroup;
     scene.add(crabGroup);
     
-    buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
+    if (tokenData) {
+      buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
+    }
     
     let rotation = 0;
     const animate = () => {
@@ -484,10 +486,10 @@ const CrabGrowth = () => {
   }, [threeLoaded, autoRotate]);
   
   useEffect(() => {
-    if (threeLoaded && crabGroupRef.current) {
+    if (threeLoaded && crabGroupRef.current && tokenData) {
       buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
     }
-  }, [tokenData.currentSize, growthStage, threeLoaded, tokenData.marketCap, tokenData]);
+  }, [tokenData, growthStage, threeLoaded]);
   
   useEffect(() => {
     if (!hasContractAddress) return; // Only fetch if CA is set
