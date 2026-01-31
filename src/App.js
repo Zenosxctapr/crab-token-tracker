@@ -522,27 +522,72 @@ const CrabGrowth = () => {
       <div className="flex-1 flex max-w-7xl mx-auto w-full">
         {/* Left stats */}
         <div className="w-64 p-8">
-          <div className="space-y-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="w-4 h-4 text-red-600" />
-                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Growth</h3>
-              </div>
-              <div className="space-y-4">
+          <div className="space-y-6">
+            {/* Current Stats Box */}
+            <div className="bg-white rounded-lg border-2 border-gray-200 p-4">
+              <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4">Current Stats</h3>
+              <div className="space-y-3">
                 <div>
-                  <div className="text-xs text-gray-500 mb-1">Market Cap</div>
-                  <div className="text-3xl font-bold text-gray-900">
+                  <div className="text-xs text-gray-500">Market Cap</div>
+                  <div className="text-xl font-bold text-gray-900">
                     ${(tokenData.marketCap / 1000).toFixed(1)}K
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500 mb-1">Stage</div>
+                  <div className="text-xs text-gray-500">Price</div>
+                  <div className="text-lg font-bold text-gray-900">
+                    ${tokenData.price.toFixed(8)}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500">Holders</div>
+                  <div className="text-lg font-bold text-gray-900">
+                    {tokenData.holders.toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Growth Box */}
+            <div className="bg-white rounded-lg border-2 border-red-600 p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-4 h-4 text-red-600" />
+                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Growth</h3>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <div className="text-xs text-gray-500">Stage</div>
                   <div className="text-2xl font-bold text-red-600">{growthStage} / 5</div>
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500 mb-1">Ball Size</div>
+                  <div className="text-xs text-gray-500">Ball Size</div>
                   <div className="text-lg font-bold text-gray-900">
                     {(Math.sqrt(tokenData.marketCap / 15000) * 100).toFixed(0)}%
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Vitals Box */}
+            <div className="bg-white rounded-lg border-2 border-gray-200 p-4">
+              <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4">Quick Vitals</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <div className="text-xs text-gray-500">Fight Level</div>
+                  <div className="text-sm font-bold text-gray-900">{growthStage * 20}%</div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="text-xs text-gray-500">Confidence</div>
+                  <div className="flex gap-1">
+                    {[1,2,3,4,5].map(i => (
+                      <div key={i} className={`w-3 h-3 rounded-full ${i <= growthStage ? 'bg-red-600' : 'bg-gray-300'}`} />
+                    ))}
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="text-xs text-gray-500">Flex Power</div>
+                  <div className="text-sm font-bold text-red-600">
+                    {growthStage >= 5 ? 'MAX' : 'GROWING'}
                   </div>
                 </div>
               </div>
