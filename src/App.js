@@ -585,7 +585,7 @@ const CrabGrowth = () => {
               <div className="bg-white rounded-lg border-2 border-red-600 p-5">
                 <div className="text-xs text-gray-500 mb-3">Contract Address</div>
                 <div className="font-mono text-xs text-gray-900 bg-gray-50 p-3 rounded mb-4 break-all">
-                  YOUR_TOKEN_ADDRESS_HERE
+                  Haw2j9b5FT1dVrn4N45nuWYd44V3upfBBrnJSHwwpump
                 </div>
                 <button 
                   onClick={handleCopy}
