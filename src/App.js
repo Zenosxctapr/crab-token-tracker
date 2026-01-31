@@ -19,7 +19,7 @@ const CrabGrowth = () => {
   });
   
   const [copied, setCopied] = useState(false);
-  const [autoRotate, setAutoRotate] = useState(true);
+  const [autoRotate] = useState(true);
   const [threeLoaded, setThreeLoaded] = useState(false);
   const mountRef = useRef(null);
   const crabGroupRef = useRef(null);
@@ -469,18 +469,19 @@ const CrabGrowth = () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
-      if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
-        mountRef.current.removeChild(renderer.domElement);
+      const mount = mountRef.current;
+      if (mount && renderer.domElement && mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
       }
       renderer.dispose();
     };
-  }, [threeLoaded]);
+  }, [threeLoaded, autoRotate]);
   
   useEffect(() => {
     if (threeLoaded && crabGroupRef.current) {
       buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
     }
-  }, [tokenData.currentSize, growthStage, threeLoaded, tokenData.marketCap]);
+  }, [tokenData.currentSize, growthStage, threeLoaded, tokenData.marketCap, tokenData]);
   
   useEffect(() => {
     // Fetch immediately on load
@@ -492,6 +493,7 @@ const CrabGrowth = () => {
     }, 5000);
     
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (
