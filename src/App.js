@@ -24,7 +24,7 @@ const CrabGrowth = () => {
   
   // Check if contract address is set on mount
   useEffect(() => {
-    const contractAddress = 'C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump';
+    const contractAddress = 'YOUR_TOKEN_ADDRESS_HERE';
     setHasContractAddress(contractAddress !== 'YOUR_TOKEN_ADDRESS_HERE');
   }, []);
   
@@ -41,7 +41,7 @@ const CrabGrowth = () => {
   const growthStage = getGrowthStage();
   
   const handleCopy = () => {
-    navigator.clipboard.writeText('C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump');
+    navigator.clipboard.writeText('YOUR_TOKEN_ADDRESS_HERE');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -52,7 +52,7 @@ const CrabGrowth = () => {
     
     try {
       const response = await fetch(
-        `https://api.dexscreener.com/latest/dex/tokens/C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump`
+        `https://api.dexscreener.com/latest/dex/tokens/YOUR_TOKEN_ADDRESS_HERE`
       );
       const data = await response.json();
       
@@ -63,7 +63,7 @@ const CrabGrowth = () => {
         setTokenData({
           price: parseFloat(mainPair.priceUsd) || 0.00001234,
           marketCap: marketCap,
-          holders: 24, // DexScreener doesn't provide holder count
+          holders: 234, // DexScreener doesn't provide holder count
           currentSize: Math.sqrt(marketCap / 100)
         });
       }
@@ -93,7 +93,7 @@ const CrabGrowth = () => {
   
   const buildSimpleCrab = (stage, size, tokenData) => {
     const THREE = window.THREE;
-    if (!THREE || !crabGroupRef.current || !tokenData) return; // Add tokenData check
+    if (!THREE || !crabGroupRef.current) return;
     
     const crabGroup = crabGroupRef.current;
     
@@ -445,9 +445,7 @@ const CrabGrowth = () => {
     crabGroupRef.current = crabGroup;
     scene.add(crabGroup);
     
-    if (tokenData) {
-      buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
-    }
+    buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
     
     let rotation = 0;
     const animate = () => {
@@ -486,10 +484,10 @@ const CrabGrowth = () => {
   }, [threeLoaded, autoRotate]);
   
   useEffect(() => {
-    if (threeLoaded && crabGroupRef.current && tokenData) {
+    if (threeLoaded && crabGroupRef.current) {
       buildSimpleCrab(growthStage, tokenData.currentSize, tokenData);
     }
-  }, [tokenData, growthStage, threeLoaded]);
+  }, [tokenData.currentSize, growthStage, threeLoaded, tokenData.marketCap, tokenData]);
   
   useEffect(() => {
     if (!hasContractAddress) return; // Only fetch if CA is set
@@ -654,7 +652,7 @@ const CrabGrowth = () => {
               <div className="bg-white rounded-lg border-2 border-red-600 p-5">
                 <div className="text-xs text-gray-500 mb-3">Contract Address</div>
                 <div className="font-mono text-xs text-gray-900 bg-gray-50 p-3 rounded mb-4 break-all">
-                  C25pDDWuFJyrHXFzZ6ThhJFWpeUqESim4FxaWNkhpump
+                  YOUR_TOKEN_ADDRESS_HERE
                 </div>
                 <button 
                   onClick={handleCopy}
