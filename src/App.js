@@ -647,7 +647,7 @@ const CrabGrowth = () => {
             </button>
             
             <a 
-              href="https://x.com/Moltballs" 
+              href="https://x.com/ZZenoDevSOl" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition-colors text-lg flex items-center justify-center gap-2"
